@@ -4,12 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class Category extends Model
 {
 	protected $table = "category";
     protected $fillable = [
         'category',
     ];
+
+    public function transaction()
+    {
+    	return $this->hasMany('App\Transaction');
+    }
 
     
 }
