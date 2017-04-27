@@ -5,7 +5,7 @@ namespace App\Repositories\Category;
 use App\Repositories\Category\CategoryRepository;
 use App\Category;
 
-
+ 
 /**
 * Implementacion de la interface para aplicar el patron de repositorios
 */
