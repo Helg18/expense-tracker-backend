@@ -21,4 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:api', 'cors']], function(){
 	Route::resource('category', 'CategoryController');
 	Route::resource('transaction', 'TransactionController');
+	Route::get('transaction/last', 'TransactionController@lastdays');
 });

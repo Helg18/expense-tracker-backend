@@ -40,5 +40,9 @@ class EloquentTransaction implements TransactionRepository
 		$this->transaction->findorfail($id)->delete();
 		return true;
 	}
+
+	public function lastdays( $days ){
+		//return false;
+	}
 }
 

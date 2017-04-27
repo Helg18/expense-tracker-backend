@@ -18,4 +18,5 @@ interface TransactionRepository
 
 	public function delete( $id );
 
+	public function lastdays( $days );
 }

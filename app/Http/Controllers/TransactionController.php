@@ -52,4 +52,9 @@ class TransactionController extends Controller
         $this->transaction->delete($id);
         return response()->json(['msg'=>'Transaccion eliminada exitosamente'], 200);
     }
+
+    public function lastdays($time=7)
+    {
+        # code...
+    }
 }
