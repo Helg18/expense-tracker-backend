@@ -30,7 +30,6 @@ class EloquentCategory implements CategoryRepository
 	}
 
 	public function update($id, array $attributes){
-		dd($attributes);
 		$categoria = $this->category->find($id);
 		$categoria->update($attributes);
 		$categoria->save();

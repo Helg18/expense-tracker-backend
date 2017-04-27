@@ -31,7 +31,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryCreateRequest $request)
+    public function store(CategoryUpdateRequest $request)
     {
         $attributes['category'] = $request->category;
         $this->category->create($attributes);
@@ -59,7 +59,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, CategoryCreateRequest $request)
+    public function update(CategoryCreateRequest $request, $id)
     {
         $attributes['category'] = $request->category;
         $attributes['id'] = $request->id;
