@@ -37,7 +37,7 @@ class EloquentCategory implements CategoryRepository
 	}
 
 	public function delete($id){
-		$this->getById($id)->delete();
+		$this->category->findorfail($id)->delete();
 		return true;
 	}
 }

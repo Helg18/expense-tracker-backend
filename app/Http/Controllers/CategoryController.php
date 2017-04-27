@@ -22,7 +22,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return $this->category->getAll();
+        $allCategories = $this->category->getAll();
+        return response()->json($allCategories, 200);
     }
 
     /**
@@ -38,7 +39,7 @@ class CategoryController extends Controller
         return response()->json([
             'success' => true,
             'msg'=>'Categoria creada exitosamente',
-            ]);
+            ], 200);
     }
 
     /**
@@ -49,7 +50,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return $this->category->getById($id);
+        $specificCategory =  $this->category->getById($id);
+        return response()->json($specificCategory, 200);
     }
 
     /**
@@ -64,17 +66,17 @@ class CategoryController extends Controller
         $attributes['category'] = $request->category;
         $attributes['id'] = $request->id;
         $this->category->update($id, $attributes);
-        return response()->json(['msg'=>'Categoria actualizada exitosamente']);
+        return response()->json(['msg'=>'Categoria actualizada exitosamente'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        return $this->categoria->delete($id);
+        $this->category->delete($id);
+        return response()->json(['msg'=>'Categoria eliminada exitosamente'], 200);
     }
 }
