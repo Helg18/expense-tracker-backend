@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Transaction\EloquentTransaction;
+use App\Http\Requests\TransactionCreateRequest;
+use App\Http\Requests\TransactionUpdateRequest;
 
 class TransactionController extends Controller
 {
@@ -15,12 +17,11 @@ class TransactionController extends Controller
 
 
     public function index(){
-
         return $this->transaction->getAll();
     }
 
 
-    public function store(Request $request){
+    public function store(TransactionCreateRequest $request){
 
         $attributes['subject'] = $request->subject;
         $attributes['amount'] = $request->amount;
@@ -36,7 +37,8 @@ class TransactionController extends Controller
          return $this->transaction->getById($id);
     }
 
-    public function update(Request $request, $id){
+
+    public function update(TransactionUpdateRequest $request, $id){
         $attributes['subject'] = $request->subject;
         $attributes['amount'] = $request->amount;
         $attributes['tot'] = $request->tot;
