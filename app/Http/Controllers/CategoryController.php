@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Repositories\Category\EloquentCategory;
+use App\Http\Requests\CategoryCreateRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
+    private $category;
+
+    function __construct(EloquentCategory $category)
+    {
+        $this->category = $category;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(Category::all());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->category->getAll();
     }
 
     /**
@@ -33,9 +31,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryCreateRequest $request)
     {
-        //
+        $attributes['category'] = $request->category;
+        $this->category->create($attributes);
+        return response()->json([
+            'success' => true,
+            'msg'=>'Categoria creada exitosamente',
+            ]);
     }
 
     /**
@@ -46,18 +49,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $this->category->getById($id);
     }
 
     /**
@@ -67,9 +59,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, CategoryCreateRequest $request)
     {
-        //
+        $attributes['category'] = $request->category;
+        $attributes['id'] = $request->id;
+        $this->category->update($id, $attributes);
+        return response()->json(['msg'=>'Categoria actualizada exitosamente']);
     }
 
     /**
@@ -80,6 +75,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->categoria->delete($id);
     }
 }
