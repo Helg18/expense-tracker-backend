@@ -53,8 +53,8 @@ class TransactionController extends Controller
         return response()->json(['msg'=>'Transaccion eliminada exitosamente'], 200);
     }
 
-    public function lastdays($time=7)
+    public function lastdays($time)
     {
-        # code...
+        return $this->transaction->lastdays($time);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Repositories\Transaction;
 
 use App\Repositories\Transaction\TransactionRepository;
 use App\Transaction;
-
+use Carbon\Carbon;
 
 /**
 * Implementacion de la interface para fungir como repositorio
@@ -42,7 +42,24 @@ class EloquentTransaction implements TransactionRepository
 	}
 
 	public function lastdays( $days ){
-		//return false;
+		$date = Carbon::now();
+		$date->subDays($days);
+		$res = Transaction::where('fecha_creado', '>', $date->toDateTimeString() )->get();
+
+		$data = [];
+		foreach($res as $c){
+			$item["id"] = $c->id;
+			$item["subject"] = $c->subject;
+			$item["amount"] = $c->amount;
+			$item["tot"] = $c->tot;
+			$item["category_id"] = $c->category_id;
+			$item["category"] = $c->category->category;
+			$item["fecha_creado"] = $c->fecha_creado;
+			$item["created_at"] = $c->created_at->toDateTimeString();
+			$item["updated_at"] = $c->created_at->toDateTimeString();
+			$data[] = $item;
+		}
+		return response()->json($data);
 	}
 }
 
