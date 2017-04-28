@@ -18,11 +18,37 @@ class EloquentTransaction implements TransactionRepository
 	}
 
 	public function getAll(){
-		return $this->transaction->all();
+		$res = $this->transaction->all();
+		$data = [];
+		foreach($res as $c){
+			$item["id"] = $c->id;
+			$item["subject"] = $c->subject;
+			$item["amount"] = $c->amount;
+			$item["tot"] = $c->tot;
+			$item["category_id"] = $c->category_id;
+			$item["category"] = $c->category->category;
+			$item["fecha_creado"] = $c->fecha_creado;
+			$item["created_at"] = $c->created_at->toDateTimeString();
+			$item["updated_at"] = $c->created_at->toDateTimeString();
+			$data[] = $item;
+		}
+		return response()->json($data);
 	}
 
 	public function getById($id){
-		return $this->transaction->find($id);
+		$res = $this->transaction->find($id);
+		$data = [];
+		$item["id"]           = $res->id;
+		$item["subject"]      = $res->subject;
+		$item["amount"]       = $res->amount;
+		$item["tot"]          = $res->tot;
+		$item["category_id"]  = $res->category_id;
+		$item["category"]     = $res->category->category;
+		$item["fecha_creado"] = $res->fecha_creado;
+		$item["created_at"]   = $res->created_at->toDateTimeString();
+		$item["updated_at"]   = $res->created_at->toDateTimeString();
+		$data[] = $item;
+		return response()->json($data);
 	}
 
 	public function create( array $attributes ){
