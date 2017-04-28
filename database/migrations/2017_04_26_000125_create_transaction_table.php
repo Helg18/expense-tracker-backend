@@ -18,6 +18,7 @@ class CreateTransactionTable extends Migration
             $table->text('subject');
             $table->float('amount', 10, 2);
             $table->enum('tot', ['withdrawal', 'deposit']);
+            $table->date('fecha_creado');
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
 

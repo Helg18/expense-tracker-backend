@@ -34,11 +34,13 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
 $factory->define(App\Transaction::class, function (Faker\Generator $faker) {
 	$flag = rand(0,1);
 	$tot = ($flag) ? "withdrawal" : "deposit";
+    $created_at = $faker->dateTimeThisDecade($max = 'now', $timezone = date_default_timezone_get());
 
     return [
 		'subject' => $faker->sentence($nbWords = 6, $variableNbWords = true),
 		'amount' => $faker->randomFloat($nbMaxDecimals = NULL, $min = 200, $max = 2),
 		'tot' =>  $tot,
 		'category_id' => $faker->numberBetween($min = 1, $max = 5),
+        'fecha_creado' => $created_at,
     ];
 });
