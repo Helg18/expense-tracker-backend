@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::group(['middleware' => ['auth:api', 'cors']], function(){
+	Route::post('register', 'UserController@registerNewUser');
 	Route::resource('category', 'CategoryController');
 	Route::resource('transaction', 'TransactionController');
 	Route::get('last/{time}', 'TransactionController@lastdays');
