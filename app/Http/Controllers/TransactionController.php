@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Transaction\EloquentTransaction;
 use App\Http\Requests\TransactionCreateRequest;
 use App\Http\Requests\TransactionUpdateRequest;
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
@@ -26,6 +27,7 @@ class TransactionController extends Controller
         $attributes['subject'] = $request->subject;
         $attributes['amount'] = $request->amount;
         $attributes['tot'] = $request->tot;
+        $attributes['fecha_creado'] = Carbon::now();
         $attributes['category_id'] = $request->category_id;
         $this->transaction->create($attributes);
 
