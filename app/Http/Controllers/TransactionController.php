@@ -59,4 +59,14 @@ class TransactionController extends Controller
     {
         return $this->transaction->lastdays($time);
     }
+
+    public function deposit()
+    {
+        return $this->transaction->depositTotal();
+    }
+
+    public function withdrawal()
+    {
+        return $this->transaction->withdrawalTotal();
+    }
 }

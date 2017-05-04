@@ -21,18 +21,18 @@ class EloquentTransaction implements TransactionRepository
 		$res = $this->transaction->all();
 		$data = [];
 		foreach($res as $c){
-			$item["id"] = $c->id;
-			$item["subject"] = $c->subject;
-			$item["amount"] = $c->amount;
-			$item["tot"] = $c->tot;
-			$item["category_id"] = $c->category_id;
-			$item["category"] = $c->category->category;
+			$item["id"]           = $c->id;
+			$item["subject"]      = $c->subject;
+			$item["amount"]       = $c->amount;
+			$item["tot"]          = $c->tot;
+			$item["category_id"]  = $c->category_id;
+			$item["category"]     = $c->category->category;
 			$item["fecha_creado"] = $c->fecha_creado;
-			$item["created_at"] = $c->created_at->toDateTimeString();
-			$item["updated_at"] = $c->created_at->toDateTimeString();
-			$data[] = $item;
+			$item["created_at"]   = $c->created_at->toDateTimeString();
+			$item["updated_at"]   = $c->created_at->toDateTimeString();
+			$data[]               = $item;
 		}
-		return response()->json($data);
+		return response()->json($data); 
 	}
 
 	public function getById($id){
@@ -87,5 +87,18 @@ class EloquentTransaction implements TransactionRepository
 		}
 		return response()->json($data);
 	}
+
+	public function depositTotal()
+	{
+		$deposits = $this->transaction->where('tot', '=', 'deposit')->get();
+		return $deposits->sum('amount');
+	}
+
+
+	public function withdrawalTotal(){
+		$withdrawal = $this->transaction->where('tot', '=', 'withdrawal')->get();
+		return $withdrawal->sum('amount');
+	}
+
 }
 

@@ -24,4 +24,6 @@ Route::group(['middleware' => ['auth:api', 'cors']], function(){
 	Route::resource('category', 'CategoryController');
 	Route::resource('transaction', 'TransactionController');
 	Route::get('last/{time}', 'TransactionController@lastdays');
+	Route::get('deposit', 'TransactionController@deposit');
+	Route::get('withdrawal', 'TransactionController@withdrawal');
 });
